@@ -1,0 +1,44 @@
+{
+  "name": "Pizza Dough Base Recipe",
+  "description": "Classic pizza dough recipe for 6 pizzas",
+  "baseServings": 6,
+  "ingredients": {
+    "flour": {
+      "amount": 1000,
+      "unit": "g",
+      "name": "Flour"
+    },
+    "water": {
+      "amount": 7,
+      "unit": "dl",
+      "name": "Cold Water"
+    },
+    "yeast": {
+      "amount": 6,
+      "unit": "g",
+      "alternativeAmount": 2.5,
+      "alternativeUnit": "spice measure",
+      "name": "Dry Yeast"
+    },
+    "salt": {
+      "amount": 5,
+      "unit": "tsp",
+      "name": "Salt"
+    }
+  },
+  "instructions": [
+    "Mix flour and salt in a large bowl",
+    "Dissolve yeast in the cold water",
+    "Add water mixture to flour mixture",
+    "Mix until a dough forms",
+    "Knead for 10 minutes until smooth",
+    "Let rise for at least 2 hours",
+    "Divide into portions and shape"
+  ],
+  "notes": [
+    "Measurements are rounded to the nearest 0.5",
+    "Teaspoons are converted to tablespoons when ≥ 3 tsp",
+    "Use cold water for best results",
+    "Let dough rest for at least 2 hours"
+  ]
+}
