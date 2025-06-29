@@ -8,7 +8,7 @@ const BASE_RECIPE = {
       amount: 6,
       unit: "g",
       alternativeAmount: 2.5,
-      alternativeUnit: "spice measure",
+      alternativeUnit: "ml",
     },
     salt: { amount: 5, unit: "tsp" },
   },
@@ -88,7 +88,7 @@ function formatIngredient(ingredient: Ingredient): string {
   let display = `${ingredient.amount} ${ingredient.unit}`;
 
   if (ingredient.alternativeAmount && ingredient.alternativeUnit) {
-    display += ` (or ${ingredient.alternativeAmount} ${ingredient.alternativeUnit})`;
+    display += ` (${ingredient.alternativeAmount} ${ingredient.alternativeUnit})`;
   }
 
   return display;
