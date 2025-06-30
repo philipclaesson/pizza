@@ -87,9 +87,9 @@ function calculateIngredients(targetPizzas: number): Recipe {
 function formatIngredient(ingredient: Ingredient): string {
   let display = `${ingredient.amount} ${ingredient.unit}`;
 
-  if (ingredient.alternativeAmount && ingredient.alternativeUnit) {
-    display += ` (${ingredient.alternativeAmount} ${ingredient.alternativeUnit})`;
-  }
+  //   if (ingredient.alternativeAmount && ingredient.alternativeUnit) {
+  //     display += ` (${ingredient.alternativeAmount} ${ingredient.alternativeUnit})`;
+  //   }
 
   return display;
 }
@@ -122,6 +122,12 @@ function updateRecipeDisplay(): void {
     yeastDisplay.textContent = formatIngredient(recipe.ingredients.yeast);
   if (saltDisplay)
     saltDisplay.textContent = formatIngredient(recipe.ingredients.salt);
+
+  // Update pizza count label
+  const pizzaCountLabel = document.getElementById("pizza-count-label");
+  if (pizzaCountLabel) {
+    pizzaCountLabel.textContent = pizzaCount === 1 ? "pizza" : "pizze";
+  }
 }
 
 // Initialize the calculator
