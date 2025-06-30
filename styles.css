@@ -6,47 +6,66 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100vh;
+  overflow: hidden;
+}
+
 body {
   font-family: 'Gasoek One', cursive;
   background-color: #f0f0f0;
   color: #d4444c;
-  overflow-x: hidden;
-  padding: 40px 20px;
+  padding: 2vh 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {
   max-width: 600px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .header {
-  margin-bottom: 60px;
+  margin-bottom: 2vh;
 }
 
 .title {
-  font-size: clamp(4rem, 15vw, 10rem);
+  font-size: clamp(3rem, min(12vw, 12vh), 8rem);
   font-weight: 400;
   color: #d4444c;
   text-transform: uppercase;
-  letter-spacing: 8px;
+  letter-spacing: clamp(2px, 1vw, 8px);
   text-shadow: 6px 6px 0px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin-bottom: 1vh;
   line-height: 0.9;
 }
 
 .main {
   width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .calculator-card {
   background: transparent;
   padding: 0;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .recipe-display {
-  margin-bottom: 80px;
+  margin-bottom: 3vh;
 }
 
 .ingredients-grid {
@@ -62,7 +81,7 @@ body {
   background: transparent;
   border: none;
   border-radius: 0;
-  margin-bottom: 20px;
+  margin-bottom: 1.5vh;
   width: 100%;
   text-align: center;
 }
@@ -73,23 +92,23 @@ body {
 }
 
 .ingredient-amount {
-  font-size: clamp(3rem, 8vw, 6rem);
+  font-size: clamp(4rem, min(12vw, 12vh), 8rem);
   font-weight: 400;
   color: #d4444c;
   text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: clamp(1px, 0.5vw, 4px);
   line-height: 0.9;
   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 0.5vh;
 }
 
 .ingredient-name {
-  font-size: clamp(2rem, 6vw, 4rem);
+  font-size: clamp(1.5rem, min(4vw, 4vh), 3rem);
   font-weight: 400;
   color: #d4444c;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: clamp(1px, 0.3vw, 3px);
   line-height: 0.9;
   text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
   display: block;
@@ -98,31 +117,31 @@ body {
 
 .pizza-selector {
   text-align: center;
-  padding: 40px 30px;
+  padding: 3vh 30px;
   background: transparent;
   border: 4px solid #d4444c;
   border-radius: 20px;
-  margin-top: 40px;
+  margin-top: 0;
 }
 
 .slider-label {
-  font-size: clamp(2rem, 6vw, 4rem);
+  font-size: clamp(1.5rem, min(4vw, 4vh), 3rem);
   font-weight: 400;
   color: #d4444c;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: clamp(1px, 0.3vw, 3px);
   display: block;
-  margin-bottom: 30px;
+  margin-bottom: 2vh;
   text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
   line-height: 0.9;
 }
 
 .pizza-count {
   color: #d4444c;
-  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-size: clamp(2rem, min(5vw, 5vh), 4rem);
   margin-left: 15px;
   text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
-  letter-spacing: 2px;
+  letter-spacing: clamp(1px, 0.3vw, 2px);
 }
 
 .pizza-slider {
@@ -134,7 +153,7 @@ body {
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 2vh;
 }
 
 .pizza-slider::-webkit-slider-thumb {
@@ -179,50 +198,21 @@ body {
 /* Responsive Design */
 @media (max-width: 768px) {
   body {
-    padding: 30px 15px;
-  }
-  
-  .header {
-    margin-bottom: 40px;
-  }
-  
-  .recipe-display {
-    margin-bottom: 60px;
-  }
-  
-  .ingredient-item {
-    margin-bottom: 15px;
+    padding: 2vh 15px;
   }
   
   .pizza-selector {
-    padding: 30px 20px;
-    margin-top: 30px;
+    padding: 2vh 20px;
   }
 }
 
 @media (max-width: 480px) {
   body {
-    padding: 20px 10px;
-  }
-  
-  .title {
-    letter-spacing: 4px;
-  }
-  
-  .ingredient-amount {
-    letter-spacing: 2px;
-  }
-  
-  .ingredient-name {
-    letter-spacing: 1px;
-  }
-  
-  .slider-label {
-    letter-spacing: 1px;
+    padding: 1vh 10px;
   }
   
   .pizza-selector {
-    padding: 25px 15px;
+    padding: 2vh 15px;
   }
 }
 
@@ -235,4 +225,8 @@ body {
 /* Focus states for accessibility */
 .pizza-slider:focus {
   box-shadow: 0 0 0 4px rgba(212, 68, 76, 0.3);
+}
+
+.ingredient-name {
+  color: rgb(167, 80, 80);
 }
