@@ -33,6 +33,10 @@ function roundToNearestHalf(value: number): number {
   return Math.round(value * 2) / 2;
 }
 
+function roundToNearest10(value: number): number {
+  return Math.round(value / 10) * 10;
+}
+
 // Convert teaspoons to tablespoons if >= 3 tsp
 function convertTspToTbsp(amount: number): { amount: number; unit: string } {
   if (amount >= 3) {
@@ -55,6 +59,11 @@ function calculateIngredients(targetPizzas: number): Recipe {
       calculatedIngredients[key] = {
         amount: converted.amount,
         unit: converted.unit,
+      };
+    } else if (ingredient.unit === "g") {
+      calculatedIngredients[key] = {
+        amount: roundToNearest10(scaledAmount),
+        unit: ingredient.unit,
       };
     } else {
       calculatedIngredients[key] = {

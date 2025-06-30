@@ -34,6 +34,7 @@ interface Recipe {
     };
 }
 declare function roundToNearestHalf(value: number): number;
+declare function roundToNearest10(value: number): number;
 declare function convertTspToTbsp(amount: number): {
     amount: number;
     unit: string;
