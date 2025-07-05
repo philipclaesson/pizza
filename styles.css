@@ -36,7 +36,7 @@ body {
 }
 
 .title {
-  font-size: clamp(3rem, min(12vw, 12vh), 8rem);
+  font-size: clamp(3rem, min(10vw, 10vh), 8rem);
   font-weight: 400;
   color: #d4444c;
   text-transform: uppercase;
@@ -92,7 +92,7 @@ body {
 }
 
 .ingredient-amount {
-  font-size: clamp(4rem, min(12vw, 12vh), 8rem);
+  font-size: clamp(4rem, min(10vw, 10vh), 6rem);
   font-weight: 400;
   color: #d4444c;
   text-transform: uppercase;
