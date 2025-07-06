@@ -2,15 +2,30 @@
 const BASE_RECIPE = {
   pizzas: 6,
   ingredients: {
-    flour: { amount: 1000, unit: "g" },
-    water: { amount: 7, unit: "dl" },
+    flour: {
+      amount: 1000,
+      unit: "g",
+      alternativeAmount: 16.6,
+      alternativeUnit: "dl",
+    },
+    water: {
+      amount: 7,
+      unit: "dl",
+      alternativeAmount: 700,
+      alternativeUnit: "g",
+    },
     yeast: {
       amount: 6,
       unit: "g",
       alternativeAmount: 2.5,
       alternativeUnit: "ml",
     },
-    salt: { amount: 5, unit: "tsp" },
+    salt: {
+      amount: 5,
+      unit: "tsp",
+      alternativeAmount: 30,
+      alternativeUnit: "g",
+    },
   },
 };
 
@@ -27,6 +42,14 @@ interface Recipe {
     [key: string]: Ingredient;
   };
 }
+
+// Track which ingredients are showing alternative amounts
+const ingredientToggleState: { [key: string]: boolean } = {
+  flour: false,
+  water: false,
+  yeast: false,
+  salt: false,
+};
 
 // Round to nearest 0.5
 function roundToNearestHalf(value: number): number {
@@ -60,9 +83,14 @@ function calculateIngredients(targetPizzas: number): Recipe {
         amount: converted.amount,
         unit: converted.unit,
       };
-    } else if (ingredient.unit === "g") {
+    } else if (scaledAmount > 100) {
       calculatedIngredients[key] = {
         amount: roundToNearest10(scaledAmount),
+        unit: ingredient.unit,
+      };
+    } else if (scaledAmount > 10) {
+      calculatedIngredients[key] = {
+        amount: Math.round(scaledAmount),
         unit: ingredient.unit,
       };
     } else {
@@ -79,9 +107,15 @@ function calculateIngredients(targetPizzas: number): Recipe {
       ingredient.alternativeAmount !== undefined &&
       ingredient.alternativeUnit !== undefined
     ) {
-      calculatedIngredients[key].alternativeAmount = roundToNearestHalf(
-        ingredient.alternativeAmount * multiplier
-      );
+      const scaledAltAmount = ingredient.alternativeAmount * multiplier;
+
+      if (ingredient.alternativeUnit === "g") {
+        calculatedIngredients[key].alternativeAmount =
+          roundToNearest10(scaledAltAmount);
+      } else {
+        calculatedIngredients[key].alternativeAmount =
+          roundToNearestHalf(scaledAltAmount);
+      }
       calculatedIngredients[key].alternativeUnit = ingredient.alternativeUnit;
     }
   }
@@ -92,15 +126,28 @@ function calculateIngredients(targetPizzas: number): Recipe {
   };
 }
 
-// Format ingredient display
-function formatIngredient(ingredient: Ingredient): string {
-  let display = `${ingredient.amount} ${ingredient.unit}`;
+// Format ingredient display based on toggle state
+function formatIngredient(
+  ingredient: Ingredient,
+  ingredientKey: string
+): string {
+  const showAlternative = ingredientToggleState[ingredientKey];
 
-  //   if (ingredient.alternativeAmount && ingredient.alternativeUnit) {
-  //     display += ` (${ingredient.alternativeAmount} ${ingredient.alternativeUnit})`;
-  //   }
+  if (
+    showAlternative &&
+    ingredient.alternativeAmount &&
+    ingredient.alternativeUnit
+  ) {
+    return `${ingredient.alternativeAmount} ${ingredient.alternativeUnit}`;
+  }
 
-  return display;
+  return `${ingredient.amount} ${ingredient.unit}`;
+}
+
+// Toggle ingredient display between main and alternative amounts
+function toggleIngredient(ingredientKey: string): void {
+  ingredientToggleState[ingredientKey] = !ingredientToggleState[ingredientKey];
+  updateRecipeDisplay();
 }
 
 // Update the recipe display
@@ -124,19 +171,51 @@ function updateRecipeDisplay(): void {
   const saltDisplay = document.getElementById("salt-amount");
 
   if (flourDisplay)
-    flourDisplay.textContent = formatIngredient(recipe.ingredients.flour);
+    flourDisplay.textContent = formatIngredient(
+      recipe.ingredients.flour,
+      "flour"
+    );
   if (waterDisplay)
-    waterDisplay.textContent = formatIngredient(recipe.ingredients.water);
+    waterDisplay.textContent = formatIngredient(
+      recipe.ingredients.water,
+      "water"
+    );
   if (yeastDisplay)
-    yeastDisplay.textContent = formatIngredient(recipe.ingredients.yeast);
+    yeastDisplay.textContent = formatIngredient(
+      recipe.ingredients.yeast,
+      "yeast"
+    );
   if (saltDisplay)
-    saltDisplay.textContent = formatIngredient(recipe.ingredients.salt);
+    saltDisplay.textContent = formatIngredient(recipe.ingredients.salt, "salt");
 
   // Update pizza count label
   const pizzaCountLabel = document.getElementById("pizza-count-label");
   if (pizzaCountLabel) {
     pizzaCountLabel.textContent = pizzaCount === 1 ? "pizza" : "pizze";
   }
+}
+
+// Add click handlers for ingredient items
+function addIngredientClickHandlers(): void {
+  const ingredientItems = document.querySelectorAll(".ingredient-item");
+
+  ingredientItems.forEach((item, index) => {
+    const ingredientKeys = ["flour", "water", "yeast", "salt"];
+    const ingredientKey = ingredientKeys[index];
+
+    item.addEventListener("click", () => {
+      toggleIngredient(ingredientKey);
+    });
+
+    // Add visual feedback
+    item.addEventListener("mouseenter", () => {
+      item.classList.add("ingredient-hover");
+    });
+
+    item.addEventListener("mouseleave", () => {
+      item.classList.remove("ingredient-hover");
+    });
+  });
 }
 
 // Initialize the calculator
@@ -152,5 +231,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initial display update
     updateRecipeDisplay();
+
+    // Add click handlers for ingredients
+    addIngredientClickHandlers();
   }
 });
