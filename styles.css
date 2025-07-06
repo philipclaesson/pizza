@@ -51,7 +51,7 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .calculator-card {
@@ -61,7 +61,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .recipe-display {
@@ -119,30 +119,10 @@ body {
   text-align: center;
   padding: 3vh 30px;
   background: transparent;
-  border: 4px solid #d4444c;
   border-radius: 20px;
-  margin-top: 0;
+  margin-top: 3vh;
 }
 
-.slider-label {
-  font-size: clamp(1.5rem, min(4vw, 4vh), 3rem);
-  font-weight: 400;
-  color: #d4444c;
-  text-transform: uppercase;
-  letter-spacing: clamp(1px, 0.3vw, 3px);
-  display: block;
-  margin-bottom: 2vh;
-  text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
-  line-height: 0.9;
-}
-
-.pizza-count {
-  color: #d4444c;
-  font-size: clamp(2rem, min(5vw, 5vh), 4rem);
-  margin-left: 15px;
-  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.1);
-  letter-spacing: clamp(1px, 0.3vw, 2px);
-}
 
 .pizza-slider {
   width: 100%;
@@ -218,7 +198,7 @@ body {
 
 /* Animation for smooth updates */
 .ingredient-amount,
-.pizza-count {
+.title {
   transition: all 0.3s ease;
 }
 

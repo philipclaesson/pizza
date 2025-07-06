@@ -155,10 +155,11 @@ function updateRecipeDisplay(): void {
   const slider = document.getElementById("pizza-slider") as HTMLInputElement;
   const pizzaCount = parseInt(slider.value);
 
-  // Update pizza count display
-  const countDisplay = document.getElementById("pizza-count");
-  if (countDisplay) {
-    countDisplay.textContent = pizzaCount.toString();
+  // Update title with pizza count
+  const titleDisplay = document.getElementById("title");
+  if (titleDisplay) {
+    const pizzaText = pizzaCount === 1 ? "PIZZA" : "PIZZE";
+    titleDisplay.textContent = `${pizzaCount} ${pizzaText}`;
   }
 
   // Calculate new recipe
@@ -187,12 +188,6 @@ function updateRecipeDisplay(): void {
     );
   if (saltDisplay)
     saltDisplay.textContent = formatIngredient(recipe.ingredients.salt, "salt");
-
-  // Update pizza count label
-  const pizzaCountLabel = document.getElementById("pizza-count-label");
-  if (pizzaCountLabel) {
-    pizzaCountLabel.textContent = pizzaCount === 1 ? "pizza" : "pizze";
-  }
 }
 
 // Add click handlers for ingredient items
